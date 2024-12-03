@@ -25,6 +25,13 @@ public class UserService {
         return true;
     }
 
+    public String isManager(String uid){
+        User user = userRepository.findByUid(uid);
+        if(user.getRole().equals("manager"))
+            return "manager";
+        return "student";
+    }
+
     private void noExistId(User user){
         if(user == null){
             throw new IllegalArgumentException("로그인 실패: 사용자 id가 존재하지 않습니다.");

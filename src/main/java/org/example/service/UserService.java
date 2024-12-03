@@ -17,12 +17,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User login(@RequestParam String uid, @RequestParam String password){
+    public boolean login(String uid, String password){
         User user = userRepository.findByUid(uid);
         noExistId(user);
         faultPassword(user, password);
 
-        return user;
+        return true;
     }
 
     private void noExistId(User user){

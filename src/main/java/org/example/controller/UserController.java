@@ -15,9 +15,14 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(@RequestParam String uid, @RequestParam String password){
+        String isManager = userService.isManager(uid);
         boolean isAuthenticated = userService.login(uid, password);
-        if(isAuthenticated)
-            return "/login/" + uid;
+        if(isAuthenticated) {
+            if (isManager.equals("manager"))
+                return "redirect:/manager/home";
+            if (isManager.equals("student"))
+                return "redirect:/student/home";
+        }
         return "로그인 error 발생";
     }
 

@@ -6,14 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.Author.domain.Author;
-import org.example.Award.Award;
+import org.example.Award.domain.Award;
 import org.example.Book.dto.BookDto;
+import org.example.Inventory.domain.Inventory;
 import org.example.Reservation.Reservation;
 import org.example.ShoppingBasket.ShoppingBasket;
-import org.example.User.dto.UserDto;
-import org.example.WareHouse.WareHouse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Book")
@@ -51,19 +49,17 @@ public class Book {
                 this.isbn);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "award_name")
-    private Award award; // Award와 1대 N 관계
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Award> awards;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "basket_id") // ShoppingBasket의 basketId를 외래 키로 설정
     private ShoppingBasket shoppingBasket;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "warehouse_code") // Warehouse의 code를 외래 키로 설정
-    private WareHouse warehouse;
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    private Inventory inventory;
 
-    @ManyToMany(mappedBy = "books") // `mappedBy`를 사용하여 관계의 주체를 `Author`로 지정
+    @ManyToMany(mappedBy = "books")
     private List<Author> authors;
 
     @ManyToMany

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+</head>
+<body>
+<h1>Url List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>url</th>
+        <th>address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="url : ${url}">
+        <td th:text="${url.url}">url</td>
+        <td th:text="${url.address}">address</td>
+        <td>
+            <a th:href="@{/urlInsert}" class="button">입력</a>
+            <a th:href="@{/url/update/{url}(url=${url.url})}" class="button">수정</a>
+            <form th:action="@{/url/delete/{url}(url=${url.url})}" method="post">
+                <button type="submit" class="button">삭제</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

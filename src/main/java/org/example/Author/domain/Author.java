@@ -5,10 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.Award.Award;
+import org.example.Author.dto.AuthorDto;
+import org.example.Award.domain.Award;
 import org.example.Book.domain.Book;
-import org.example.Book.dto.BookDto;
-import org.example.Url.Url;
+import org.example.Url.domain.Url;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,10 @@ public class Author {
     @Id
     private String name;  // 기본키
 
-    @OneToOne
+    @Column
+    private String urls;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "url")  // `urls` 테이블의 `url` 컬럼 참조
     private Url url;
 
@@ -38,9 +41,22 @@ public class Author {
     )
     private List<Book> books;
 
-    public Author(String name, Url url) {
+    public Author(String name,String urls, Url url) {
         this.name = name;
+        this.urls = urls;
         this.url = url;
     }
+
+    public AuthorDto toAuthorDto(){
+        return new AuthorDto(
+                this.name,
+                this.urls,
+                this.url);
+    }
+
+    public String getUrl() {
+        return url.getUrl();
+    }
+
 }
 

@@ -13,7 +13,8 @@
     <p th:text="${error}"></p>
 </div>
 
-<form action="/book/update/ + ${book.isbn}" method="post">
+<form th:action="@{/book/update/{isbn}(isbn=${bookDto.isbn})}" method="post">
+
     <div>
         <label for="isbn">ISBN:</label>
         <input type="text" id="isbn" name="isbn" th:value="${bookDto.isbn}" required>

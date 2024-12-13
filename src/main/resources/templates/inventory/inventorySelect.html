@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory List</title>
+</head>
+<body>
+<h1>Inventory List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>number</th>
+        <th>bookIsbn</th>
+        <th>wareHouseCode</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="inventory : ${inventory}">
+        <td th:text="${inventory.number}">number</td>
+        <td th:text="${inventory.bookIsbn}">bookIsbn</td>
+        <td th:text="${inventory.code}">wareHouseCode</td>
+        <td>
+            <a th:href="@{/inventoryInsert}" class="button">입력</a>
+            <a th:href="@{/inventory/update/{bookIsbn}(bookIsbn=${inventory.bookIsbn})}" class="button">수정</a>
+            <form th:action="@{/inventory/delete/{bookIsbn}(bookIsbn=${inventory.bookIsbn})}" method="post">
+                <button type="submit" class="button">삭제</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

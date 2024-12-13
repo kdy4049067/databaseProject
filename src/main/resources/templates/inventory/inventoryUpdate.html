@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update inventory</title>
+</head>
+<body>
+<h1>Update inventory</h1>
+
+<!-- 에러 메시지 출력 -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/inventory/update/{bookIsbn}(bookIsbn=${inventoryDto.bookIsbn})}" method="post">
+
+    <div>
+        <label for="number">number:</label>
+        <input type="number" id="number" name="number" th:value="${inventoryDto.number}" required>
+    </div>
+    <div>
+        <label for="bookIsbn">bookIsbn:</label>
+        <input type="text" id="bookIsbn" name="bookIsbn" th:value="${inventoryDto.bookIsbn}" required>
+    </div>
+    <div>
+        <label for="wareHouseCode">wareHouseCode</label>
+        <input type="text" id="wareHouseCode" name="wareHouseCode" th:value="${inventoryDto.code}" required>
+    </div>
+
+    <button type="submit">Update inventory</button>
+</form>
+
+
+<button onclick="location.href='/inventory'">Back to inventory List</button>
+
+</body>
+</html>

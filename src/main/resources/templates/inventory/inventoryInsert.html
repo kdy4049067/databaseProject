@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Administration</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .form-container input {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Inventory Administration</h1>
+<div class="form-container">
+    <h3>Add/Update Inventory</h3>
+    <form id="inventoryForm" action = "/inventory/insert" method = "post">
+        <input type="number" id="number" name="number" placeholder="Book ISBN">
+        <input type="text" id="bookIsbn" name = "bookIsbn" placeholder="bookIsbn" required>
+        <input type="text" id="wareHouseCode" name = "wareHouseCode" placeholder="wareHouseCode" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>

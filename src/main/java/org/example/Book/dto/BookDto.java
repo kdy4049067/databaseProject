@@ -1,4 +1,4 @@
 package org.example.Book.dto;
 
-public record BookDto(String year, String title, int price, String category, String isbn) {
+public record BookDto(String isbn, String title, int price, String category, String year) {
 }

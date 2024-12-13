@@ -11,8 +11,11 @@
 <table border="1">
     <thead>
     <tr>
-        <th>Title</th>
-        <th>Author</th>
+        <th>isbn</th>
+        <th>title</th>
+        <th>year</th>
+        <th>category</th>
+        <th>price</th>
     </tr>
     </thead>
     <tbody>
@@ -23,9 +26,11 @@
         <td th:text="${book.category}">category</td>
         <td th:text="${book.price}">price</td>
         <td>
-            <button th:onclick="'location.href=\'/bookInsert.html'">입력</button>
-            <button th:onclick="'location.href=\'/book/update/ + ${book.isbn}'">수정</button>
-            <button th:onclick="'location.href=\'/book/delete/ + ${book.isbn}'">삭제</button>
+            <a th:href="@{/bookInsert}" class="button">입력</a>
+            <a th:href="@{/book/update/{isbn}(isbn=${book.isbn})}" class="button">수정</a>
+            <form th:action="@{/book/delete/{isbn}(isbn=${book.isbn})}" method="post">
+                <button type="submit" class="button">삭제</button>
+            </form>
         </td>
     </tr>
     </tbody>

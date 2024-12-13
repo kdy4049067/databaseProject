@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+</head>
+<body>
+<h1>author List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>name</th>
+        <th>urls</th>
+        <th>url</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="author : ${author}">
+        <td th:text="${author.name}">Name</td>
+        <td th:text="${author.urls}">urls</td>
+        <td th:text="${author.url}">url</td>
+        <td>
+            <a th:href="@{/authorInsert}" class="button">입력</a>
+            <a th:href="@{/author/update/{name}(name=${author.name})}" class="button">수정</a>
+            <form th:action="@{/author/delete/{name}(name=${author.name})}" method="post">
+                <button type="submit" class="button">삭제</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

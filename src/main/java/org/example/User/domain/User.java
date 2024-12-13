@@ -29,7 +29,6 @@ public class User {
 
     public UserDto toUserDto(){
         return new UserDto(
-                this.id,
                 this.uid,
                 this.password,
                 this.role);

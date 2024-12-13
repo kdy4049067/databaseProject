@@ -28,8 +28,16 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public BookDto updateBook(BookDto bookDto){
-        Book book = bookRepository.findBookByIsbn(bookDto.isbn());
+    public Book findBookByIsbn(String isbn){
+        return bookRepository.findBookByIsbn(isbn);
+    }
+
+    public BookDto updateBook(Book book, BookDto bookDto){
+        boolean check = isIsbnExist(bookDto.isbn());
+        if(check){
+            throw new IllegalArgumentException("이미 존재하는 isbn입니다.");
+        }
+
         book.setYear(bookDto.year());
         book.setIsbn(bookDto.isbn());
         book.setTitle(bookDto.title());

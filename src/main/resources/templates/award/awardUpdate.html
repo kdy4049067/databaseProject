@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Award</title>
+</head>
+<body>
+<h1>Update Award</h1>
+
+<!-- 에러 메시지 출력 -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/award/update/{name}(name=${awardDto.name})}" method="post">
+
+    <div>
+        <label for="awardName">awardName:</label>
+        <input type="text" id="awardName" name="awardName" th:value="${awardDto.name}" required>
+        <input type="text" id="year" name="year" th:value="${awardDto.year}" required>
+        <input type="text" id="authorName" name="authorName" th:value="${awardDto.authorName}" required>
+        <input type="text" id="bookIsbn" name="bookIsbn" th:value="${awardDto.bookIsbn}" required>
+    </div>
+    <button type="submit">Update Award</button>
+</form>
+
+
+<button onclick="location.href='/award'">Back to award List</button>
+
+</body>
+</html>

@@ -51,5 +51,10 @@ public class BookService {
         return bookRepository.existsByIsbn(isbn);
     }
 
+    public BookDto deleteBook(String isbn){
+        BookDto bookDto = bookRepository.deleteBookByIsbn(isbn);
+        return bookDto;
+    }
+
 
 }

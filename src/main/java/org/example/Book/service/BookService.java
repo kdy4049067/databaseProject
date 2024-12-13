@@ -28,4 +28,20 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public BookDto updateBook(BookDto bookDto){
+        Book book = bookRepository.findBookByIsbn(bookDto.isbn());
+        book.setYear(bookDto.year());
+        book.setIsbn(bookDto.isbn());
+        book.setTitle(bookDto.title());
+        book.setPrice(bookDto.price());
+        book.setCategory(bookDto.category());
+
+        return book.toBookDto();
+    }
+
+    public boolean isIsbnExist(String isbn) {
+        return bookRepository.existsByIsbn(isbn);
+    }
+
+
 }

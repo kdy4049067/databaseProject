@@ -59,4 +59,12 @@ public class BookController {
         return "redirect:/book";
     }
 
+    @PostMapping("/book/delete/{isbn}")
+    public String deleteBook(@PathVariable String isbn){
+        bookService.deleteBook(isbn);
+
+        return "redirect:/book";
+    }
+
+
 }

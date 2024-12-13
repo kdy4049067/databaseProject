@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+</head>
+<body>
+<h1>Update Book</h1>
+
+<!-- 에러 메시지 출력 -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/wareHouse/update/{code}(code=${wareHouseDto.code})}" method="post">
+
+    <div>
+        <label for="code">code:</label>
+        <input type="text" id="code" name="code" th:value="${wareHouseDto.code}" required>
+    </div>
+    <div>
+        <label for="address">address:</label>
+        <input type="text" id="address" name="address" th:value="${wareHouseDto.address}" required>
+    </div>
+    <div>
+        <label for="phone">phone:</label>
+        <input type="text" id="phone" name="phone" th:value="${wareHouseDto.phone}" required>
+    </div>
+    <button type="submit">Update wareHouse</button>
+</form>
+
+
+<button onclick="location.href='/wareHouse'">Back to wareHouse List</button>
+
+</body>
+</html>

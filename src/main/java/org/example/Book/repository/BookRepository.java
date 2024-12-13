@@ -8,5 +8,6 @@ public interface BookRepository extends JpaRepository<Book, String> {
 
     public boolean existsByIsbn(String isbn);
     public Book findBookByIsbn(String isbn);
+    public BookDto deleteBookByIsbn(String isbn);
 
 }

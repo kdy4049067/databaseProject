@@ -1,9 +1,16 @@
 package org.example.User.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.example.User.dto.UserDto;
 import org.example.User.service.UserService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@Slf4j
+@Controller
 public class UserController {
 
     private final UserService userService;
@@ -12,17 +19,24 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
-    public String login(@RequestParam String uid, @RequestParam String password){
-        String isManager = userService.isManager(uid);
-        boolean isAuthenticated = userService.login(uid, password);
+
+    @GetMapping("/")
+    public String showLoginForm() {
+        return "index";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute UserDto userDto) {
+        String isManager = userService.isManager(userDto.uid());
+        boolean isAuthenticated = userService.login(userDto.uid(), userDto.password());
+
         if(isAuthenticated) {
             if (isManager.equals("manager"))
-                return "/manager-home";
+                return "manager-home";
             if (isManager.equals("student"))
-                return "/student-home";
+                return "student-home";
         }
-        return "로그인 error 발생";
+        return "redirect:/";
     }
 
 }

@@ -2,10 +2,9 @@ package org.example.Reservation;
 
 import jakarta.persistence.*;
 import org.example.Book.domain.Book;
-import org.example.Customer.Customer;
+import org.example.Customer.domain.Customer;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

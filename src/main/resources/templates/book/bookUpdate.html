@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+</head>
+<body>
+<h1>Update Book</h1>
+
+<!-- 에러 메시지 출력 -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form action="/book/update" method="post">
+    <label for="isbn">ISBN</label>
+    <input type="text" id="isbn" name="isbn" value="${book.isbn}" /><br/><br/>
+
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" value="${book.title}"/><br/><br/>
+
+    <label for="year">Year</label>
+    <input type="text" id="year" name="year" value="${book.year}"/><br/><br/>
+
+    <label for="category">Category</label>
+    <input type="text" id="category" name="category" value="${book.category}"/><br/><br/>
+
+    <label for="price">Price</label>
+    <input type="text" id="price" name="price" value="${book.price}"/><br/><br/>
+
+    <button type="submit">Update Book</button>
+</form>
+
+<button onclick="location.href='/book'">Back to Book List</button>
+
+</body>
+</html>

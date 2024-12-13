@@ -1,13 +1,16 @@
 package org.example.Book.service;
 
+import jakarta.transaction.Transactional;
 import org.example.Book.domain.Book;
 import org.example.Book.dto.BookDto;
 import org.example.Book.repository.BookRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class BookService {
 
     private final BookRepository bookRepository;
@@ -32,9 +35,9 @@ public class BookService {
         return bookRepository.findBookByIsbn(isbn);
     }
 
+    @Transactional
     public BookDto updateBook(Book book, BookDto bookDto){
-        boolean check = isIsbnExist(bookDto.isbn());
-        if(check){
+        if (!book.getIsbn().equals(bookDto.isbn()) && isIsbnExist(bookDto.isbn())) {
             throw new IllegalArgumentException("이미 존재하는 isbn입니다.");
         }
 
@@ -51,10 +54,9 @@ public class BookService {
         return bookRepository.existsByIsbn(isbn);
     }
 
-    public BookDto deleteBook(String isbn){
-        BookDto bookDto = bookRepository.deleteBookByIsbn(isbn);
-        return bookDto;
+    @Transactional
+    public void deleteBook(String isbn) {
+        bookRepository.deleteBookByIsbn(isbn);
     }
-
 
 }

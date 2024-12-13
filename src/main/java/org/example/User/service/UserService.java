@@ -23,12 +23,16 @@ public class UserService {
         return true;
     }
 
-    public String isManager(String uid){
+    public String isManager(String uid) {
         User user = userRepository.findByUid(uid);
-        if(user.getRole().equals("manager"))
+        if (user == null || user.getRole() == null) {
+            throw new IllegalArgumentException("사용자 정보가 잘못되었습니다.");
+        }
+        if (user.getRole().equals("manager"))
             return "manager";
         return "student";
     }
+
 
     private void noExistId(User user){
         if(user == null){

@@ -4,8 +4,12 @@ import org.example.Book.domain.Book;
 import org.example.Book.dto.BookDto;
 import org.example.Book.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 public class BookController {
 
@@ -25,6 +29,14 @@ public class BookController {
 
         Book book = new Book(year, title, price, category, isbn);
         bookService.insertBook(book);
+
+        return "/bookSelect";
+    }
+
+    @GetMapping("/book")
+    public String selectAllBook(Model model){
+        List<BookDto> bookDtos = bookService.findAllBook();
+        model.addAttribute("book", bookDtos);
 
         return "/bookSelect";
     }

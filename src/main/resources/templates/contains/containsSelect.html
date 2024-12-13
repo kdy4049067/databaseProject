@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contains List</title>
+</head>
+<body>
+<h1>Contains List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>number</th>
+        <th>bookIsbn</th>
+        <th>shoppingBasketId</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contains : ${contains}">
+        <td th:text="${contains.number}">number</td>
+        <td th:text="${contains.bookIsbn}">bookIsbn</td>
+        <td th:text="${contains.shoppingBasketId}">shoppingBasketId/td>
+        <td>
+            <a th:href="@{/containsInsert}" class="button">입력</a>
+            <a th:href="@{/contains/update/{bookIsbn}(bookIsbn=${contains.bookIsbn})}" class="button">수정</a>
+            <form th:action="@{/contains/delete/{shoppingBasketId}(shoppingBasketId=${contains.shoppingBasketId})}" method="post">
+                <button type="submit" class="button">삭제</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

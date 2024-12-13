@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Contains</title>
+</head>
+<body>
+<h1>Update Contains</h1>
+
+<!-- 에러 메시지 출력 -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/contains/update/{bookIsbn}(bookIsbn=${containsDto.bookIsbn})}" method="post">
+
+    <div>
+        <label for="number">number:</label>
+        <input type="number" id="number" name="number" th:value="${containsDto.number}" required>
+    </div>
+    <div>
+        <label for="bookIsbn">bookIsbn:</label>
+        <input type="text" id="bookIsbn" name="bookIsbn" th:value="${containsDto.bookIsbn}" required>
+    </div>
+    <div>
+        <label for="shoppingBasketId">shoppingBasketId</label>
+        <input type="text" id="shoppingBasketId" name="shoppingBasketId" th:value="${containsDto.shoppingBasketId}" required>
+    </div>
+
+    <button type="submit">Update contains</button>
+</form>
+
+
+<button onclick="location.href='/contains'">Back to contains List</button>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+</head>
+<body>
+<h1>Book List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${book}">
+        <td th:text="${book.isbn}">Isbn</td>
+        <td th:text="${book.title}">title</td>
+        <td th:text="${book.year}">year</td>
+        <td th:text="${book.category}">category</td>
+        <td th:text="${book.price}">price</td>
+        <td>
+            <button th:onclick="'location.href=\'/bookInsert.html'">입력</button>
+            <button th:onclick="'location.href=\'/book/update/ + ${book.isbn}'">수정</button>
+            <button th:onclick="'location.href=\'/book/delete/ + ${book.isbn}'">삭제</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.Book.dto.BookDto;
 import org.example.User.dto.UserDto;
 
@@ -11,6 +12,7 @@ import org.example.User.dto.UserDto;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Book {
 
     @Id

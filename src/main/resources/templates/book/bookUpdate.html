@@ -13,24 +13,30 @@
     <p th:text="${error}"></p>
 </div>
 
-<form action="/book/update" method="post">
-    <label for="isbn">ISBN</label>
-    <input type="text" id="isbn" name="isbn" value="${book.isbn}" /><br/><br/>
-
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" value="${book.title}"/><br/><br/>
-
-    <label for="year">Year</label>
-    <input type="text" id="year" name="year" value="${book.year}"/><br/><br/>
-
-    <label for="category">Category</label>
-    <input type="text" id="category" name="category" value="${book.category}"/><br/><br/>
-
-    <label for="price">Price</label>
-    <input type="text" id="price" name="price" value="${book.price}"/><br/><br/>
-
+<form action="/book/update/ + ${book.isbn}" method="post">
+    <div>
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn" th:value="${bookDto.isbn}" required>
+    </div>
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" th:value="${bookDto.title}" required>
+    </div>
+    <div>
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" th:value="${bookDto.year}" required>
+    </div>
+    <div>
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" th:value="${bookDto.category}" required>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" th:value="${bookDto.price}" required>
+    </div>
     <button type="submit">Update Book</button>
 </form>
+
 
 <button onclick="location.href='/book'">Back to Book List</button>
 

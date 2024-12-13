@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Administration</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .form-container input {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Book Administration</h1>
+<div class="form-container">
+    <h3>Add/Update Book</h3>
+    <form id="bookForm" action = "/book/insert">
+        <input type="text" id="bookISBN" placeholder="Book ISBN">
+        <input type="text" id="title" placeholder="Title" required>
+        <input type="text" id="year" placeholder="Year" required>
+        <input type="number" id="price" placeholder="Price" required>
+        <input type ="text" id = "category" placeholder="Category" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>

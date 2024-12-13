@@ -1,11 +1,10 @@
-package org.example.entity;
+package org.example.User.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.example.dto.UserDto;
+import org.example.User.dto.UserDto;
 
 @Entity(name = "User")
 @AllArgsConstructor

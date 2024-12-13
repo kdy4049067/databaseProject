@@ -1,7 +1,6 @@
-package org.example.controller;
+package org.example.User.controller;
 
-import org.example.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.User.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,9 +18,9 @@ public class UserController {
         boolean isAuthenticated = userService.login(uid, password);
         if(isAuthenticated) {
             if (isManager.equals("manager"))
-                return "redirect:/manager/home";
+                return "/manager-home";
             if (isManager.equals("student"))
-                return "redirect:/student/home";
+                return "/student-home";
         }
         return "로그인 error 발생";
     }

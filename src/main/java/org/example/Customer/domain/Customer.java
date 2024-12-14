@@ -42,7 +42,8 @@ public class Customer {
     public CustomerDto toCustomerDto(){
         return new CustomerDto(
                 this.email,
-                this.phone);
+                this.phone,
+                this.phoneCustomer);
     }
 
 }

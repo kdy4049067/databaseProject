@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContainsRepository extends JpaRepository<Contains, Long> {
-    public Contains findContainsByBook(String bookIsbn);
+    public Contains findContainsByBook(Book book);
     public boolean existsContainsByBook(Book book);
-    public void deleteContainsByBook(String bookIsbn);
+    public void deleteContainsByBook(Book book);
 }

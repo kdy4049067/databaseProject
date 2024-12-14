@@ -12,6 +12,8 @@ import org.example.Customer.dto.CustomerDto;
 import org.example.Customer.repository.CustomerRepository;
 import org.example.PhoneCustomer.domain.PhoneCustomer;
 import org.example.PhoneCustomer.repository.PhoneCustomerRepository;
+import org.example.Reservation.domain.Reservation;
+import org.example.Reservation.repository.ReservationRepository;
 import org.example.ShoppingBasket.ShoppingBasket;
 import org.example.ShoppingBasket.repository.ShoppingBasketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +32,16 @@ public class CustomerService {
     private final AwardRepository awardRepository;
     private final BookRepository bookRepository;
     private final ShoppingBasketRepository shoppingBasketRepository;
+    private final ReservationRepository reservationRepository;
 
-    public CustomerService(PhoneCustomerRepository phoneCustomerRepository, CustomerRepository customerRepository, AuthorRepository authorRepository, AwardRepository awardRepository, BookRepository bookRepository, ShoppingBasketRepository shoppingBasketRepository){
+    public CustomerService(PhoneCustomerRepository phoneCustomerRepository, CustomerRepository customerRepository, AuthorRepository authorRepository, AwardRepository awardRepository, BookRepository bookRepository, ShoppingBasketRepository shoppingBasketRepository, ReservationRepository repository, ReservationRepository reservationRepository){
         this.phoneCustomerRepository = phoneCustomerRepository;
         this.customerRepository = customerRepository;
         this.authorRepository = authorRepository;
         this.awardRepository = awardRepository;
         this.bookRepository = bookRepository;
         this.shoppingBasketRepository = shoppingBasketRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     public PhoneCustomer makePhoneCustomer(String phone){
@@ -125,8 +129,14 @@ public class CustomerService {
     }
 
     public ShoppingBasket findMyShoppingBasket(String email){
-       ShoppingBasket shoppingBasket = shoppingBasketRepository.findShoppingBasketByCustomer(email);
+        Customer customer = customerRepository.findCustomerByEmail(email);
+       ShoppingBasket shoppingBasket = shoppingBasketRepository.findShoppingBasketByCustomer(customer);
        return shoppingBasket;
+    }
+
+    public Reservation findMyReservation(String email){
+        Customer customer = customerRepository.findCustomerByEmail(email);
+        return reservationRepository.findReservationByCustomer(customer);
     }
 
 }

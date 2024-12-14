@@ -10,8 +10,7 @@ import org.example.Award.domain.Award;
 import org.example.Book.dto.BookDto;
 import org.example.Contains.domain.Contains;
 import org.example.Inventory.domain.Inventory;
-import org.example.Reservation.Reservation;
-import org.example.ShoppingBasket.ShoppingBasket;
+import org.example.Reservation.domain.Reservation;
 
 import java.util.List;
 

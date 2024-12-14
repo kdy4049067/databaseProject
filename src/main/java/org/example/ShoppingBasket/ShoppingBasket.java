@@ -1,11 +1,11 @@
 package org.example.ShoppingBasket;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.Book.domain.Book;
+import org.example.Contains.domain.Contains;
+import org.example.Customer.domain.Customer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,9 +21,12 @@ public class ShoppingBasket {
 
     private LocalDateTime orderDate;
 
-    @OneToMany(mappedBy = "shoppingBasket")
-    private List<Book> books = new ArrayList<>();
+    @OneToMany(mappedBy = "shoppingBasket", cascade = CascadeType.ALL)
+    private List<Contains> containsList;
 
-    // 기본 생성자, getter, setter
+    @OneToOne
+    @JoinColumn(name="customer_id")
+    private Customer customer;
+
 }
 

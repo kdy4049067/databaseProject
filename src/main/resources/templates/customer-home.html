@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search</title>
+</head>
+<body>
+<h1>Book Search</h1>
+
+<form action="/customer/author/search" method="post">
+    <div>
+        <label for="authorName">Author Name:</label>
+        <input type="text" id="authorName" name="authorName" placeholder="Enter author name">
+    </div>
+
+    <button type="submit">Search</button>
+</form>
+
+
+<form action="/customer/award/search" method="post">
+    <div>
+        <label for="awardName">Award Name:</label>
+        <input type="text" id="awardName" name="awardName" placeholder="Enter award name">
+    </div>
+
+    <button type="submit">Search</button>
+</form>
+
+<form action="/customer/book/search" method="post">
+    <div>
+        <label for="bookTitle">book title:</label>
+        <input type="text" id="bookTitle" name="bookTitle" placeholder="Enter book name">
+    </div>
+
+    <button type="submit">Search</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books by Author</title>
+</head>
+<body>
+<h1>Books by Author</h1>
+
+<!-- Form to search for books by author -->
+<form action="/customer/book/search" method="post">
+    <label for="title">title Name:</label>
+    <input type="text" id="title" name="title" required>
+    <button type="submit">Search</button>
+</form>
+
+<!-- Displaying books if any are found -->
+<h2>Search Results</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Book Title</th>
+        <th>ISBN</th>
+        <th>price</th>
+        <th>category</th>
+        <th>year</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over the books list -->
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.isbn}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${book.category}"></td>
+        <td th:text="${book.year}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Display a message if no books are found -->
+<div th:if="${#lists.isEmpty(books)}">
+    <p>No books found for the given author name.</p>
+</div>
+
+</body>
+</html>

@@ -23,9 +23,6 @@ public class WareHouse {
     @Column
     private String phone;
 
-    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Book> books;
-
     @OneToMany(mappedBy = "warehouse")
     private List<Inventory> inventories;
 

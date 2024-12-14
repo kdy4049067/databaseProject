@@ -35,5 +35,16 @@
 
     <button type="submit">Search</button>
 </form>
+
+<h2>Customer Options</h2>
+<ul>
+    <li>
+        <a th:href="@{|/customer/${email}/shopping-basket|}">View My Shopping Basket</a>
+    </li>
+    <li>
+        <a th:href="@{|/customer/${email}/reservations|}">View My Reservations</a>
+    </li>
+</ul>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.example.Customer.dto.CustomerDto;
 import org.example.PhoneCustomer.domain.PhoneCustomer;
 import org.example.Reservation.Reservation;
+import org.example.ShoppingBasket.ShoppingBasket;
 
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reservation> reservations;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private ShoppingBasket shoppingBasket;
 
     public Customer(String email, String phone, PhoneCustomer phoneCustomer) {
         this.email = email;

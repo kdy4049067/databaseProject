@@ -12,6 +12,8 @@ import org.example.Customer.dto.CustomerDto;
 import org.example.Customer.repository.CustomerRepository;
 import org.example.PhoneCustomer.domain.PhoneCustomer;
 import org.example.PhoneCustomer.repository.PhoneCustomerRepository;
+import org.example.ShoppingBasket.ShoppingBasket;
+import org.example.ShoppingBasket.repository.ShoppingBasketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +29,15 @@ public class CustomerService {
     private final AuthorRepository authorRepository;
     private final AwardRepository awardRepository;
     private final BookRepository bookRepository;
+    private final ShoppingBasketRepository shoppingBasketRepository;
 
-
-    public CustomerService(PhoneCustomerRepository phoneCustomerRepository, CustomerRepository customerRepository, AuthorRepository authorRepository, AwardRepository awardRepository, BookRepository bookRepository){
+    public CustomerService(PhoneCustomerRepository phoneCustomerRepository, CustomerRepository customerRepository, AuthorRepository authorRepository, AwardRepository awardRepository, BookRepository bookRepository, ShoppingBasketRepository shoppingBasketRepository){
         this.phoneCustomerRepository = phoneCustomerRepository;
         this.customerRepository = customerRepository;
         this.authorRepository = authorRepository;
         this.awardRepository = awardRepository;
         this.bookRepository = bookRepository;
+        this.shoppingBasketRepository = shoppingBasketRepository;
     }
 
     public PhoneCustomer makePhoneCustomer(String phone){
@@ -119,6 +122,11 @@ public class CustomerService {
             return false;
         }
         return true;
+    }
+
+    public ShoppingBasket findMyShoppingBasket(String email){
+       ShoppingBasket shoppingBasket = shoppingBasketRepository.findShoppingBasketByCustomer(email);
+       return shoppingBasket;
     }
 
 }

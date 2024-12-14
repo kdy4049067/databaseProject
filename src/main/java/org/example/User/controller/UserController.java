@@ -32,8 +32,6 @@ public class UserController {
         if(isAuthenticated) {
             if (isManager.equals("manager"))
                 return "manager-home";
-
-            return "customer-home";
         }
         return "redirect:/";
     }

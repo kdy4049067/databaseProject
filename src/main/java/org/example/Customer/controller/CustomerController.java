@@ -6,6 +6,7 @@ import org.example.Customer.domain.Customer;
 import org.example.Customer.dto.CustomerDto;
 import org.example.Customer.service.CustomerService;
 import org.example.PhoneCustomer.domain.PhoneCustomer;
+import org.example.Reservation.domain.Reservation;
 import org.example.ShoppingBasket.ShoppingBasket;
 import org.example.User.dto.UserDto;
 import org.springframework.stereotype.Controller;
@@ -99,7 +100,7 @@ public class CustomerController {
         return "findBooksByTitle";
     }
 
-    @PostMapping("/login")
+    @PostMapping("customer/login")
     public String login(@ModelAttribute CustomerDto customerDto, Model model) {
         boolean isAuthenticated = customerService.login(customerDto.email(), customerDto.phoneCustomer().getPhone());
 
@@ -118,5 +119,11 @@ public class CustomerController {
         return "customer-shoppingBasket";
     }
 
+    @GetMapping("/customer/{email}/reservation")
+    public String viewReservation(@PathVariable String email, Model model){
+        Reservation reservation = customerService.findMyReservation(email);
+        model.addAttribute("reservation", reservation);
+        return "customer-reservation";
+    }
 
 }

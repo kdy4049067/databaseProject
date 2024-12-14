@@ -47,7 +47,8 @@ public class InventoryService {
     }
 
     public Inventory findInventoryByBook(String bookIsbn) {
-        return inventoryRepository.findInventoryByBook(bookIsbn);
+        Book book = bookRepository.findBookByIsbn(bookIsbn);
+        return inventoryRepository.findInventoryByBook(book);
     }
 
     @Transactional
@@ -67,7 +68,8 @@ public class InventoryService {
     }
 
     public void deleteInventory(String bookIsbn) {
-        inventoryRepository.deleteInventoryByBook(bookIsbn);
+        Book book = bookRepository.findBookByIsbn(bookIsbn);
+        inventoryRepository.deleteInventoryByBook(book);
     }
 }
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
-    public Inventory findInventoryByBook(String bookIsbn);
+    public Inventory findInventoryByBook(Book book);
     public boolean existsInventoryByBook(Book book);
-    public void deleteInventoryByBook(String bookIsbn);
+    public void deleteInventoryByBook(Book book);
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.example.Author.domain.Author;
 import org.example.Award.domain.Award;
 import org.example.Book.dto.BookDto;
+import org.example.Contains.domain.Contains;
 import org.example.Inventory.domain.Inventory;
 import org.example.Reservation.Reservation;
 import org.example.ShoppingBasket.ShoppingBasket;
@@ -52,9 +53,8 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Award> awards;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "basket_id") // ShoppingBasket의 basketId를 외래 키로 설정
-    private ShoppingBasket shoppingBasket;
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    private Contains contains;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
     private Inventory inventory;

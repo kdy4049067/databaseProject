@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Basket</title>
+</head>
+<body>
+<h1>Reservation Details</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Reservation ID</th>
+        <th>Reservation Date</th>
+        <th>pickup time</th>
+        <th>customer email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${reservation.id}">Reservation ID</td>
+        <td th:text="${reservation.reservationDate}">Reservation Date</td>
+        <td th:text="${reservation.pickupTime}">pickupTime</td>
+        <td th:text="${reservation.customer.getEmail()}">email</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

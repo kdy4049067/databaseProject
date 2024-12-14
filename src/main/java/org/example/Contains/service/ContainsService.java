@@ -49,7 +49,8 @@ public class ContainsService {
     }
 
     public Contains findContainsByBook(String bookIsbn) {
-        return containsRepository.findContainsByBook(bookIsbn);
+        Book book = bookRepository.findBookByIsbn(bookIsbn);
+        return containsRepository.findContainsByBook(book);
     }
 
     @Transactional
@@ -69,6 +70,7 @@ public class ContainsService {
     }
 
     public void deleteContains(String bookIsbn) {
-        containsRepository.deleteContainsByBook(bookIsbn);
+        Book book = bookRepository.findBookByIsbn(bookIsbn);
+        containsRepository.deleteContainsByBook(book);
     }
 }

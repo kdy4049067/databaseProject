@@ -1,4 +1,6 @@
 package org.example.Customer.dto;
 
-public record CustomerDto(String email, String phone) {
+import org.example.PhoneCustomer.domain.PhoneCustomer;
+
+public record CustomerDto(String email, String phone, PhoneCustomer phoneCustomer) {
 }

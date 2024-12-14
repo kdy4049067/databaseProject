@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.Customer.dto.CustomerDto;
 import org.example.PhoneCustomer.domain.PhoneCustomer;
-import org.example.Reservation.Reservation;
+import org.example.Reservation.domain.Reservation;
 import org.example.ShoppingBasket.ShoppingBasket;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -26,8 +24,8 @@ public class Customer {
     @JoinColumn(name = "phoneCustomer_Phone")  // `customer_phone` 테이블의 `phone` 참조
     private PhoneCustomer phoneCustomer;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Reservation> reservations;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Reservation reservation;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private ShoppingBasket shoppingBasket;

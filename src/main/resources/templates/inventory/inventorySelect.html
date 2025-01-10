@@ -7,24 +7,22 @@
 </head>
 <body>
 <h1>Inventory List</h1>
-
+<a th:href="@{/admin}" class="button">관리자 페이지</a>
+<a th:href="@{/inventoryInsert}" class="button">입력</a>
 <table border="1">
     <thead>
     <tr>
         <th>number</th>
-        <th>bookIsbn</th>
         <th>wareHouseCode</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="inventory : ${inventory}">
         <td th:text="${inventory.number}">number</td>
-        <td th:text="${inventory.bookIsbn}">bookIsbn</td>
         <td th:text="${inventory.code}">wareHouseCode</td>
         <td>
-            <a th:href="@{/inventoryInsert}" class="button">입력</a>
-            <a th:href="@{/inventory/update/{bookIsbn}(bookIsbn=${inventory.bookIsbn})}" class="button">수정</a>
-            <form th:action="@{/inventory/delete/{bookIsbn}(bookIsbn=${inventory.bookIsbn})}" method="post">
+            <a th:href="@{/inventory/getUpdate/{code}(code=${inventory.code})}" class="button">수정</a>
+            <form th:action="@{/inventory/delete/{code}(code=${inventory.code})}" method="post">
                 <button type="submit" class="button">삭제</button>
             </form>
         </td>

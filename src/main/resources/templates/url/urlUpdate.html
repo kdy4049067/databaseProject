@@ -6,14 +6,14 @@
     <title>Update Book</title>
 </head>
 <body>
-<h1>Update Book</h1>
+<h1>Update Url</h1>
 
 
 <form th:action="@{/url/update/{url}(url=${urlDto.url})}" method="post">
 
     <div>
         <label for="url">url:</label>
-        <input type="text" id="url" name="url" th:value="${urlDto.url}" required>
+        <input type="text" id="url" name="url" th:value="${urlDto.url}" required readonly>
     </div>
     <div>
         <label for="address">address:</label>

@@ -7,8 +7,9 @@
 </head>
 <body>
 <h1>Url List</h1>
-
+<a th:href="@{/admin}" class="button">관리자 페이지</a>
 <table border="1">
+    <a th:href="@{/urlInsert}" class="button">입력</a>
     <thead>
     <tr>
         <th>url</th>
@@ -20,7 +21,6 @@
         <td th:text="${url.url}">url</td>
         <td th:text="${url.address}">address</td>
         <td>
-            <a th:href="@{/urlInsert}" class="button">입력</a>
             <a th:href="@{/url/update/{url}(url=${url.url})}" class="button">수정</a>
             <form th:action="@{/url/delete/{url}(url=${url.url})}" method="post">
                 <button type="submit" class="button">삭제</button>

@@ -46,16 +46,18 @@ public class Book {
                 this.title,
                 this.price,
                 this.category,
-                this.isbn);
+                this.year);
     }
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Award> awards;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "contains_id")
     private Contains contains;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "inventory_id")  // 외래 키 설정
     private Inventory inventory;
 
     @ManyToMany(mappedBy = "books")
@@ -67,6 +69,14 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_isbn"),
             inverseJoinColumns = @JoinColumn(name = "reservation_id")
     )
-    private List<Reservation> reservations; // Reservation과 N대 M 관계
+    private List<Reservation> reservations;
+
+    public void addReservation(Reservation reservation) {
+        this.reservations.add(reservation);
+    }
+
+    public void removeReservation(Reservation reservation) {
+        this.reservations.remove(reservation);
+    }
 
 }

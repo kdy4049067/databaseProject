@@ -17,15 +17,16 @@ import java.util.List;
 public class ShoppingBasket {
 
     @Id
-    private String basketId;  // 기본키
+    private String basketId;
 
     private LocalDateTime orderDate;
 
-    @OneToMany(mappedBy = "shoppingBasket", cascade = CascadeType.ALL)
-    private List<Contains> containsList;
+    @OneToOne
+    @JoinColumn(name = "contains_id")
+    private Contains contains;
 
     @OneToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name="customer_email")
     private Customer customer;
 
 }

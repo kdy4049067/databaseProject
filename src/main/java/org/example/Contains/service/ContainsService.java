@@ -28,17 +28,13 @@ public class ContainsService {
         this.shoppingBasketRepository = shoppingBasketRepository;
     }
 
-    public Book makeBook(String bookIsbn) {
-        return bookRepository.findBookByIsbn(bookIsbn);
+    public ShoppingBasket makeShoppingBasket(String shoppingBasketId) {
+        return shoppingBasketRepository.findShoppingBasketByBasketId(shoppingBasketId);
     }
 
-    public ShoppingBasket makeShoppingBasket(String basketId) {
-        return shoppingBasketRepository.findShoppingBasketByBasketId(basketId);
-    }
-
-    public ContainsDto insertContains(Contains contains) {
-        Contains newContains = containsRepository.save(contains);
-        return newContains.toContainsDto();
+    @Transactional
+    public Contains insertContains(Contains contains) {
+        return containsRepository.save(contains);
     }
 
     public List<ContainsDto> findAllContains() {
@@ -48,29 +44,21 @@ public class ContainsService {
                 .collect(Collectors.toList());
     }
 
-    public Contains findContainsByBook(String bookIsbn) {
-        Book book = bookRepository.findBookByIsbn(bookIsbn);
-        return containsRepository.findContainsByBook(book);
+    public Contains findContainsByShoppingBasket(ShoppingBasket shoppingBasket) {
+        return containsRepository.findContainsByShoppingBasket(shoppingBasket);
     }
 
     @Transactional
     public ContainsDto updateContains(Contains contains, ContainsDto containsDto) {
-        Book book = makeBook(containsDto.bookIsbn());
-        ShoppingBasket shoppingBasket = makeShoppingBasket(containsDto.shoppingBasketId());
-
         contains.setNumber(containsDto.number());
-        contains.setBook(book);
-        contains.setShoppingBasket(shoppingBasket);
 
         return contains.toContainsDto();
     }
 
-    public boolean isContainsExist(Book book) {
-        return containsRepository.existsContainsByBook(book);
+    @Transactional
+    public void deleteContains(String shoppingBasketId) {
+        ShoppingBasket shoppingBasket = shoppingBasketRepository.findShoppingBasketByBasketId(shoppingBasketId);
+        containsRepository.deleteContainsByShoppingBasket(shoppingBasket);
     }
 
-    public void deleteContains(String bookIsbn) {
-        Book book = bookRepository.findBookByIsbn(bookIsbn);
-        containsRepository.deleteContainsByBook(book);
-    }
 }

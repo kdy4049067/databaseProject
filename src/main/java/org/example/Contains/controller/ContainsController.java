@@ -8,10 +8,7 @@ import org.example.Contains.service.ContainsService;
 import org.example.ShoppingBasket.ShoppingBasket;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,15 +28,9 @@ public class ContainsController {
     }
 
     @PostMapping("/contains/insert")
-    public String manageContains(@ModelAttribute ContainsDto containsDto) {
+    public String manageContains(@ModelAttribute ContainsDto containsDto){
         int number = containsDto.number();
-        String bookIsbn = containsDto.bookIsbn();
-        String shoppingBasketId = containsDto.shoppingBasketId();
-
-        Book book = containsService.makeBook(bookIsbn);
-        ShoppingBasket shoppingBasket = containsService.makeShoppingBasket(shoppingBasketId);
-
-        Contains contains = new Contains(number, book, shoppingBasket);
+        Contains contains = new Contains(number);
         containsService.insertContains(contains);
 
         return "redirect:/contains";
@@ -53,18 +44,20 @@ public class ContainsController {
         return "contains/containsSelect";
     }
 
-    @GetMapping("/contains/update/{bookIsbn}")
-    public String findUpdateContains(Model model, @PathVariable(name = "bookIsbn") String bookIsbn) {
-        Contains contains = containsService.findContainsByBook(bookIsbn);
+    @GetMapping("/contains/update/{shoppingBasketBasketId}")
+    public String findUpdateContains(Model model, @PathVariable(name = "shoppingBasketBasketId") String shoppingBasketBasketId) {
+        ShoppingBasket shoppingBasket = containsService.makeShoppingBasket(shoppingBasketBasketId);
+        Contains contains = containsService.findContainsByShoppingBasket(shoppingBasket);
         ContainsDto findContainsDto = contains.toContainsDto();
         model.addAttribute("containsDto", findContainsDto);
 
         return "contains/containsUpdate";
     }
 
-    @PostMapping("/contains/update/{bookIsbn}")
-    public String updateContains(@ModelAttribute ContainsDto containsDto, @PathVariable(name = "bookIsbn") String bookIsbn) {
-        Contains contains = containsService.findContainsByBook(bookIsbn);
+    @PostMapping("/contains/update/{shoppingBasketBasketId}")
+    public String updateContains(@ModelAttribute ContainsDto containsDto, @PathVariable(name = "shoppingBasketBasketId") String shoppingBasketBasketId) {
+        ShoppingBasket shoppingBasket = containsService.makeShoppingBasket(shoppingBasketBasketId);
+        Contains contains = containsService.findContainsByShoppingBasket(shoppingBasket);
         ContainsDto updatedContainsDto = containsService.updateContains(contains, containsDto);
         if (updatedContainsDto == null) {
             throw new IllegalArgumentException("업데이트 실패");

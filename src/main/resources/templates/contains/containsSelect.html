@@ -7,24 +7,21 @@
 </head>
 <body>
 <h1>Contains List</h1>
-
+<a th:href="@{/admin}" class="button">관리자 페이지</a>
+<a th:href="@{/containsInsert}" class="button">입력</a>
 <table border="1">
     <thead>
     <tr>
         <th>number</th>
-        <th>bookIsbn</th>
         <th>shoppingBasketId</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="contains : ${contains}">
         <td th:text="${contains.number}">number</td>
-        <td th:text="${contains.bookIsbn}">bookIsbn</td>
-        <td th:text="${contains.shoppingBasketId}">shoppingBasketId/td>
         <td>
-            <a th:href="@{/containsInsert}" class="button">입력</a>
-            <a th:href="@{/contains/update/{bookIsbn}(bookIsbn=${contains.bookIsbn})}" class="button">수정</a>
-            <form th:action="@{/contains/delete/{shoppingBasketId}(shoppingBasketId=${contains.shoppingBasketId})}" method="post">
+            <a th:href="@{/contains/update/{id}(id=${contains.id})}" class="button">수정</a>
+            <form th:action="@{/contains/delete/{id}(id=${contains.id})}" method="post">
                 <button type="submit" class="button">삭제</button>
             </form>
         </td>

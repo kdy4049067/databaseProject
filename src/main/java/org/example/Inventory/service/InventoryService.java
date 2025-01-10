@@ -30,13 +30,18 @@ public class InventoryService {
         return bookRepository.findBookByIsbn(bookIsbn);
     }
 
+    @Transactional
     public WareHouse makeWareHouse(String code){
-        return wareHouseRepository.findWareHouseByCode(code);
+        WareHouse wareHouse = wareHouseRepository.findWareHouseByCode(code);
+        if (wareHouse == null) {
+            throw new IllegalArgumentException("Warehouse not found with code: " + code);
+        }
+        return wareHouse;
     }
 
-    public InventoryDto insertInventory(Inventory inventory) {
-        Inventory newInventory = inventoryRepository.save(inventory);
-        return newInventory.toInventoryDto();
+    @Transactional
+    public Inventory insertInventory(Inventory inventory) {
+        return inventoryRepository.save(inventory);
     }
 
     public List<InventoryDto> findAllInventory() {
@@ -46,30 +51,28 @@ public class InventoryService {
                 .collect(Collectors.toList());
     }
 
-    public Inventory findInventoryByBook(String bookIsbn) {
-        Book book = bookRepository.findBookByIsbn(bookIsbn);
-        return inventoryRepository.findInventoryByBook(book);
+    public Inventory findInventoryByWareHouse(WareHouse wareHouse) {
+        return inventoryRepository.findInventoryByWarehouse(wareHouse);
     }
 
     @Transactional
     public InventoryDto updateInventory(Inventory inventory, InventoryDto inventoryDto) {
-        Book book = makeBook(inventoryDto.bookIsbn());
         WareHouse wareHouse = makeWareHouse(inventoryDto.code());
 
         inventory.setNumber(inventoryDto.number());
-        inventory.setBook(book);
         inventory.setWarehouse(wareHouse);
 
         return inventory.toInventoryDto();
     }
 
-    public boolean isInventoryExist(Book book) {
-        return inventoryRepository.existsInventoryByBook(book);
+    public boolean isInventoryExist(WareHouse wareHouse) {
+        return inventoryRepository.existsInventoryByWarehouse(wareHouse);
     }
 
-    public void deleteInventory(String bookIsbn) {
-        Book book = bookRepository.findBookByIsbn(bookIsbn);
-        inventoryRepository.deleteInventoryByBook(book);
+    @Transactional
+    public void deleteInventory(String code) {
+        WareHouse wareHouse = wareHouseRepository.findWareHouseByCode(code);
+        inventoryRepository.deleteInventoryByWarehouse(wareHouse);
     }
 }
 

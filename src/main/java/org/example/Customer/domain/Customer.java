@@ -21,7 +21,7 @@ public class Customer {
     private String phone;
 
     @OneToOne
-    @JoinColumn(name = "phoneCustomer_Phone")  // `customer_phone` 테이블의 `phone` 참조
+    @JoinColumn(name = "phoneCustomer_Phone")
     private PhoneCustomer phoneCustomer;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
@@ -41,7 +41,7 @@ public class Customer {
         return new CustomerDto(
                 this.email,
                 this.phone,
-                this.phoneCustomer);
+                this.phoneCustomer.getPhone());
     }
 
 }

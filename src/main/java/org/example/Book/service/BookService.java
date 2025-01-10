@@ -19,6 +19,7 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Transactional
     public BookDto insertBook(Book book){
         Book newBook = bookRepository.save(book);
         return newBook.toBookDto();

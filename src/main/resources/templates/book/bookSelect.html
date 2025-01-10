@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>Book List</h1>
-
+<a th:href="@{/admin}" class="button">관리자 페이지</a>
+<a th:href="@{/bookInsert}" class="button">입력</a>
 <table border="1">
     <thead>
     <tr>
@@ -26,7 +27,6 @@
         <td th:text="${book.category}">category</td>
         <td th:text="${book.price}">price</td>
         <td>
-            <a th:href="@{/bookInsert}" class="button">입력</a>
             <a th:href="@{/book/update/{isbn}(isbn=${book.isbn})}" class="button">수정</a>
             <form th:action="@{/book/delete/{isbn}(isbn=${book.isbn})}" method="post">
                 <button type="submit" class="button">삭제</button>

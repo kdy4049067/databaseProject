@@ -8,6 +8,7 @@ import org.example.Book.domain.Book;
 import org.example.Customer.domain.Customer;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,10 +25,10 @@ public class Reservation {
     private LocalDateTime pickupTime;
 
     @ManyToMany(mappedBy = "reservations")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "customer_id", unique = true)
+    @JoinColumn(name = "customer_email", unique = true)
     private Customer customer;
 
 }

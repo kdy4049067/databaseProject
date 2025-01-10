@@ -6,13 +6,15 @@
     <title>Book List</title>
 </head>
 <body>
-<h1>Url List</h1>
-
+<h1>wareHouse List</h1>
+<a th:href="@{/admin}" class="button">관리자 페이지</a>
+<a th:href="@{/wareHouseInsert}" class="button">입력</a>
 <table border="1">
     <thead>
     <tr>
-        <th>url</th>
+        <th>code</th>
         <th>address</th>
+        <th>phone</th>
     </tr>
     </thead>
     <tbody>
@@ -21,7 +23,6 @@
         <td th:text="${wareHouse.address}">address</td>
         <td th:text="${wareHouse.phone}">phone</td>
         <td>
-            <a th:href="@{/wareHouseIsert}" class="button">입력</a>
             <a th:href="@{/wareHouse/update/{code}(code=${wareHouse.code})}" class="button">수정</a>
             <form th:action="@{/wareHouse/delete/{code}(code=${wareHouse.code})}" method="post">
                 <button type="submit" class="button">삭제</button>
@@ -30,5 +31,6 @@
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

@@ -1,6 +1,8 @@
 package org.example.Url.service;
 
 import jakarta.transaction.Transactional;
+import org.example.Author.domain.Author;
+import org.example.Author.repository.AuthorRepository;
 import org.example.Book.domain.Book;
 import org.example.Book.dto.BookDto;
 import org.example.Book.repository.BookRepository;
@@ -16,9 +18,11 @@ import java.util.stream.Collectors;
 public class UrlService {
 
     private final UrlRepository urlRepository;
+    private final AuthorRepository authorRepository;
 
-    public UrlService(UrlRepository urlRepository){
+    public UrlService(UrlRepository urlRepository, AuthorRepository authorRepository){
         this.urlRepository = urlRepository;
+        this.authorRepository = authorRepository;
     }
 
     public UrlDto insertUrl(Url url){
@@ -42,10 +46,7 @@ public class UrlService {
         if (!url.getUrl().equals(urlDto.url()) && isUrlExist(urlDto.url())) {
             throw new IllegalArgumentException("이미 존재하는 url입니다.");
         }
-
-        url.setUrl(urlDto.url());
-        url.setUrl(urlDto.address());
-
+        url.setAddress(urlDto.address());
         return url.toUrlDto();
     }
 

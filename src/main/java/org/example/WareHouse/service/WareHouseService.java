@@ -18,6 +18,7 @@ public class WareHouseService {
         this.wareHouseRepository = wareHouseRepository;
     }
 
+    @Transactional
     public WareHouseDto insertWareHouse(WareHouse wareHouse){
         WareHouse newWareHouse = wareHouseRepository.save(wareHouse);
         return newWareHouse.toWareHouseDto();

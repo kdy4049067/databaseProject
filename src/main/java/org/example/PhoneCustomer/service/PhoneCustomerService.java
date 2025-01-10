@@ -19,6 +19,7 @@ public class PhoneCustomerService {
         this.phoneCustomerRepository = phoneCustomerRepository;
     }
 
+    @Transactional
     public PhoneCustomerDto insertPhoneCustomer(PhoneCustomer phoneCustomer){
         PhoneCustomer newPhoneCustomer = phoneCustomerRepository.save(phoneCustomer);
         return newPhoneCustomer.toPhoneCustomerDto();

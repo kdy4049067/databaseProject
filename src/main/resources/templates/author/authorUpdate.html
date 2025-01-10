@@ -16,8 +16,8 @@
 <form th:action="@{/author/update/{name}(name=${authorDto.name})}" method="post">
 
     <div>
-        <label for="authorName">authorName:</label>
-        <input type="text" id="authorName" name="authorName" th:value="${authorDto.name}" required>
+        <label for="name">authorName:</label>
+        <input type="text" id="name" name="name" th:value="${authorDto.name}" required readonly>
         <input type="text" id="urls" name="urls" th:value="${authorDto.urls}" required>
     </div>
     <button type="submit">Update Author</button>

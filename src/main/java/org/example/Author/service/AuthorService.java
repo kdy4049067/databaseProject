@@ -27,6 +27,7 @@ public class AuthorService {
         return urlRepository.findUrlByUrl(urls);
     }
 
+    @Transactional
     public AuthorDto saveAuthor(Author author) {
         Author newAuthor = authorRepository.save(author);
         return newAuthor.toAuthorDto();
@@ -56,6 +57,7 @@ public class AuthorService {
         return author.toAuthorDto();
     }
 
+    @Transactional
     public void deleteAuthor(String name) {
         authorRepository.deleteAuthorByName(name);
     }

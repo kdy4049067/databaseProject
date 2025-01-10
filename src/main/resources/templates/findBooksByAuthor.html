@@ -8,27 +8,29 @@
 <body>
 <h1>Books by Author</h1>
 
-<!-- Form to search for books by author -->
 <form action="/customer/author/search" method="post">
     <label for="authorName">Author Name:</label>
     <input type="text" id="authorName" name="authorName" required>
     <button type="submit">Search</button>
 </form>
 
-<!-- Displaying books if any are found -->
 <h2>Search Results</h2>
+
+<div th:if="${message}" style="color: blue;">
+    <p th:text="${message}"></p>
+</div>
+
 <table border="1">
     <thead>
     <tr>
         <th>Book Title</th>
         <th>ISBN</th>
-        <th>price</th>
-        <th>category</th>
-        <th>year</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Year</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Iterate over the books list -->
     <tr th:each="book : ${books}">
         <td th:text="${book.title}"></td>
         <td th:text="${book.isbn}"></td>
@@ -38,7 +40,9 @@
     </tr>
     </tbody>
 </table>
-
+<div th:if="${total}" style="color: blue;">
+    <p th:text="'총 수량: ' + ${total}"></p>
+</div>
 <!-- Display a message if no books are found -->
 <div th:if="${#lists.isEmpty(books)}">
     <p>No books found for the given author name.</p>

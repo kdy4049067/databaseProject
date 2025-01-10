@@ -36,6 +36,7 @@ public class AwardService {
         return bookRepository.findBookByIsbn(bookIsbn);
     }
 
+    @Transactional
     public AwardDto insertAward(Award award){
         Award newAuthor = awardRepository.save(award);
         return newAuthor.toAwardDto();

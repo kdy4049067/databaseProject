@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Basket</title>
+    <title>My Reservations</title>
 </head>
 <body>
-<h1>Shopping Basket Details</h1>
+<h1>My Reserved Books</h1>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Basket ID</th>
-        <th>Order Date</th>
-        <th>Customer</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${shoppingBasket.basketId}">Basket ID</td>
-        <td th:text="${shoppingBasket.orderDate}">Order Date</td>
-        <td th:text="${shoppingBasket.customer.getEmail()}">Customer</td>
-    </tr>
-    </tbody>
-</table>
+<div th:if="${books != null && books.size() > 0}">
+    <h2>Reserved Books:</h2>
+    <ul>
+        <li th:each="book : ${books}">
+            <p>Title: <span th:text="${book.title}"></span></p>
+            <p>Author: <span th:text="${book.contains}"></span></p>
+            <p>Year: <span th:text="${book.year}"></span></p>
+            <p>Price: <span th:text="${book.price}"></span></p>
+            <p>Category: <span th:text="${book.category}"></span></p>
+            <p>ISBN: <span th:text="${book.isbn}"></span></p>
+        </li>
+    </ul>
+</div>
+
+<div th:if="${books == null || books.size() == 0}">
+    <p>You have no reserved books.</p>
+</div>
+
 </body>
 </html>

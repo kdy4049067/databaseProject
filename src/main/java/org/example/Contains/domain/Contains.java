@@ -8,6 +8,8 @@ import org.example.Book.domain.Book;
 import org.example.Contains.dto.ContainsDto;
 import org.example.ShoppingBasket.ShoppingBasket;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -19,26 +21,26 @@ public class Contains {
     private Long id;
 
     @Column(nullable = false)
-    private int number;  // 책의 수량
+    private int number;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_isbn", unique = true)
-    private Book book;  // 책 엔티티
+    @OneToMany(mappedBy = "contains", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shopping_basket_id")
+    @OneToOne(mappedBy = "contains", cascade = CascadeType.ALL)
     private ShoppingBasket shoppingBasket;
 
-    public Contains(int number, Book book, ShoppingBasket shoppingBasket) {
+    public Contains(int number) {
         this.number = number;
-        this.book = book;
-        this.shoppingBasket = shoppingBasket;
     }
 
     public ContainsDto toContainsDto() {
         return new ContainsDto(
-                this.number,
-                this.book.getIsbn(),
-                this.shoppingBasket.getBasketId());
+                this.id,
+                this.number);
     }
+
+    public void addBook(Book book){
+        this.books.add(book);
+    }
+
 }

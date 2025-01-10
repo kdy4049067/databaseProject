@@ -6,8 +6,9 @@
     <title>award List</title>
 </head>
 <body>
-<h1>Book List</h1>
-
+<h1>Award List</h1>
+<a th:href="@{/admin}" class="button">관리자 페이지</a>
+<a th:href="@{/awardInsert}" class="button">입력</a>
 <table border="1">
     <thead>
     <tr>
@@ -24,7 +25,7 @@
         <td th:text="${award.authorName}">authorName</td>
         <td th:text="${award.bookIsbn()}">bookIsbn</td>
         <td>
-            <a th:href="@{/awardInsert}" class="button">입력</a>
+
             <a th:href="@{/award/update/{name}(name=${award.name})}" class="button">수정</a>
             <form th:action="@{/award/delete/{name}(name=${award.name})}" method="post">
                 <button type="submit" class="button">삭제</button>

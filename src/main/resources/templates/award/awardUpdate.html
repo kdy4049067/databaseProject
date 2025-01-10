@@ -16,8 +16,8 @@
 <form th:action="@{/award/update/{name}(name=${awardDto.name})}" method="post">
 
     <div>
-        <label for="awardName">awardName:</label>
-        <input type="text" id="awardName" name="awardName" th:value="${awardDto.name}" required>
+        <label for="name">awardName:</label>
+        <input type="text" id="name" name="name'" th:value="${awardDto.name}" required readonly>
         <input type="text" id="year" name="year" th:value="${awardDto.year}" required>
         <input type="text" id="authorName" name="authorName" th:value="${awardDto.authorName}" required>
         <input type="text" id="bookIsbn" name="bookIsbn" th:value="${awardDto.bookIsbn}" required>

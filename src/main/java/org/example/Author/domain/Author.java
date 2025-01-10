@@ -21,7 +21,7 @@ import java.util.List;
 public class Author {
 
     @Id
-    private String name;  // 기본키
+    private String name;
 
     @Column
     private String urls;

@@ -7,6 +7,8 @@ import org.example.Award.domain.Award;
 import org.example.Award.repository.AwardRepository;
 import org.example.Book.domain.Book;
 import org.example.Book.repository.BookRepository;
+import org.example.Contains.domain.Contains;
+import org.example.Contains.repository.ContainsRepository;
 import org.example.Customer.domain.Customer;
 import org.example.Customer.dto.CustomerDto;
 import org.example.Customer.repository.CustomerRepository;
@@ -33,8 +35,9 @@ public class CustomerService {
     private final BookRepository bookRepository;
     private final ShoppingBasketRepository shoppingBasketRepository;
     private final ReservationRepository reservationRepository;
+    private final ContainsRepository containsRepository;
 
-    public CustomerService(PhoneCustomerRepository phoneCustomerRepository, CustomerRepository customerRepository, AuthorRepository authorRepository, AwardRepository awardRepository, BookRepository bookRepository, ShoppingBasketRepository shoppingBasketRepository, ReservationRepository repository, ReservationRepository reservationRepository){
+    public CustomerService(PhoneCustomerRepository phoneCustomerRepository, CustomerRepository customerRepository, AuthorRepository authorRepository, AwardRepository awardRepository, BookRepository bookRepository, ShoppingBasketRepository shoppingBasketRepository, ReservationRepository repository, ReservationRepository reservationRepository, ContainsRepository containsRepository){
         this.phoneCustomerRepository = phoneCustomerRepository;
         this.customerRepository = customerRepository;
         this.authorRepository = authorRepository;
@@ -42,12 +45,14 @@ public class CustomerService {
         this.bookRepository = bookRepository;
         this.shoppingBasketRepository = shoppingBasketRepository;
         this.reservationRepository = reservationRepository;
+        this.containsRepository = containsRepository;
     }
 
     public PhoneCustomer makePhoneCustomer(String phone){
         return phoneCustomerRepository.findPhoneCustomerByPhone(phone);
     }
 
+    @Transactional
     public CustomerDto insertCustomer(Customer customer){
         PhoneCustomer phoneCustomer = phoneCustomerRepository.findPhoneCustomerByPhone(customer.getPhone());
         customer.setPhoneCustomer(phoneCustomer);
@@ -63,7 +68,7 @@ public class CustomerService {
     }
 
     public Customer findCustomerByEmail(String email){
-        return customerRepository.findCustomerByEmail(email);
+        return customerRepository.findByEmail(email);
     }
 
     @Transactional
@@ -89,38 +94,49 @@ public class CustomerService {
         customerRepository.deleteCustomerByEmail(email);
     }
 
-    public List<Book> findBooksByAuthorName(String authorName) {
-        List<Author> authors = authorRepository.findAuthorsByName(authorName);
+    public List<Book> findBookByAuthorName(String authorName) {
+        Author author = authorRepository.findAuthorByName(authorName);
 
-        List<Book> books = authors.stream()
-                .flatMap(author -> author.getBooks().stream())
-                .distinct()
-                .collect(Collectors.toList());
+        List<Book> books = author.getBooks();
 
         return books;
     }
 
-    public List<Book> findBooksByAwardName(String awardName) {
-        List<Award> awards = awardRepository.findAwardsByName(awardName);
-        List<Book> books = new ArrayList<>();
-        for(Award award : awards){
-            String bookIsbn = award.getBook().getIsbn();
-            Book book = bookRepository.findBookByIsbn(bookIsbn);
-
-            if(book != null)
-                books.add(book);
+    public int totalBookByAuthorName(String authorName){
+        Author author = authorRepository.findAuthorByName(authorName);
+        int num = 0;
+        List<Book> books = author.getBooks();
+        for(Book book : books){
+            num += book.getInventory().getNumber();
         }
-        return books;
+        return num;
     }
 
-    public List<Book> findBooksByTitle(String title){
-        List<Book> books = bookRepository.findBooksByTitle(title);
+    public Book findBookByAwardName(String awardName) {
+        Award award = awardRepository.findAwardByName(awardName);
+        String bookIsbn = award.getBook().getIsbn();
 
-        return books;
+        return bookRepository.findBookByIsbn(bookIsbn);
+    }
+
+    public int totalBookByAwardName(String awardName){
+        Award award = awardRepository.findAwardByName(awardName);
+        int num = award.getBook().getInventory().getNumber();
+        return num;
+    }
+
+    public Book findBookByTitle(String title){
+        return bookRepository.findBookByTitle(title);
+    }
+
+    public int totalBookByTitle(String title){
+        Book book = bookRepository.findBookByTitle(title);
+        int num = book.getInventory().getNumber();
+        return num;
     }
 
     public boolean login(String email, String phone){
-        Customer customer = customerRepository.findCustomerByEmail(email);
+        Customer customer = customerRepository.findByEmail(email);
         if(customer == null) return false;
         if(!customer.getPhone().equals(phone)){
             return false;
@@ -129,13 +145,12 @@ public class CustomerService {
     }
 
     public ShoppingBasket findMyShoppingBasket(String email){
-        Customer customer = customerRepository.findCustomerByEmail(email);
-       ShoppingBasket shoppingBasket = shoppingBasketRepository.findShoppingBasketByCustomer(customer);
-       return shoppingBasket;
+        Customer customer = customerRepository.findByEmail(email);
+        return customer.getShoppingBasket();
     }
 
     public Reservation findMyReservation(String email){
-        Customer customer = customerRepository.findCustomerByEmail(email);
+        Customer customer = customerRepository.findByEmail(email);
         return reservationRepository.findReservationByCustomer(customer);
     }
 

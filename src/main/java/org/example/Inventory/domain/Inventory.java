@@ -8,6 +8,8 @@ import org.example.Book.domain.Book;
 import org.example.Inventory.dto.InventoryDto;
 import org.example.WareHouse.domain.WareHouse;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,20 +26,17 @@ public class Inventory {
     @JoinColumn(name = "warehouse_code")
     private WareHouse warehouse;
 
-    @OneToOne
-    @JoinColumn(name = "book_isbn")
-    private Book book;
+    @OneToMany(mappedBy = "inventory")
+    private List<Book> books;
 
-    public Inventory(int number, Book book, WareHouse warehouse) {
+    public Inventory(int number, WareHouse warehouse) {
         this.number = number;
-        this.book = book;
         this.warehouse = warehouse;
     }
 
     public InventoryDto toInventoryDto(){
         return new InventoryDto(
                 this.number,
-                this.book.getIsbn(),
                 this.warehouse.getCode());
     }
 

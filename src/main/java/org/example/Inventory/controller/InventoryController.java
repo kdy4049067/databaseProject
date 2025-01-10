@@ -33,13 +33,10 @@ public class InventoryController {
     @PostMapping("/inventory/insert")
     public String manageInventory(@ModelAttribute InventoryDto inventoryDto) {
         int number = inventoryDto.number();
-        String bookIsbn = inventoryDto.bookIsbn();
         String warehouseName = inventoryDto.code();
 
-        Book book = inventoryService.makeBook(bookIsbn);
-        WareHouse warehouse = inventoryService.makeWareHouse(warehouseName);
-
-        Inventory inventory = new Inventory(number, book, warehouse);
+        WareHouse wareHouse = inventoryService.makeWareHouse(warehouseName);
+        Inventory inventory = new Inventory(number, wareHouse);
         inventoryService.insertInventory(inventory);
 
         return "redirect:/inventory";
@@ -53,18 +50,20 @@ public class InventoryController {
         return "inventory/inventorySelect";
     }
 
-    @GetMapping("/inventory/update/{bookIsbn}")
-    public String findUpdateInventory(Model model, @PathVariable(name = "bookIsbn") String bookIsbn) {
-        Inventory inventory = inventoryService.findInventoryByBook(bookIsbn);
+    @GetMapping("/inventory/getUpdate/{code}")
+    public String findUpdateInventory(Model model, @PathVariable(name = "code") String code) {
+        WareHouse wareHouse = inventoryService.makeWareHouse(code);
+        Inventory inventory = inventoryService.findInventoryByWareHouse(wareHouse);
         InventoryDto findInventoryDto = inventory.toInventoryDto();
         model.addAttribute("inventoryDto", findInventoryDto);
 
         return "inventory/inventoryUpdate";
     }
 
-    @PostMapping("/inventory/update/{bookIsbn}")
-    public String updateInventory(@ModelAttribute InventoryDto inventoryDto, @PathVariable(name = "bookIsbn") String bookIsbn) {
-        Inventory inventory = inventoryService.findInventoryByBook(bookIsbn);
+    @PostMapping("/inventory/update/{code}")
+    public String updateInventory(@ModelAttribute InventoryDto inventoryDto, @PathVariable(name = "code") String code) {
+        WareHouse wareHouse = inventoryService.makeWareHouse(code);
+        Inventory inventory = inventoryService.findInventoryByWareHouse(wareHouse);
         InventoryDto updatedInventoryDto = inventoryService.updateInventory(inventory, inventoryDto);
         if (updatedInventoryDto == null) {
             throw new IllegalArgumentException("업데이트 실패");
